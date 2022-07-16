@@ -1,0 +1,114 @@
+child: SafeArea(
+    child: ListView(
+      //shrinkWrap: true,
+      physics: const AlwaysScrollableScrollPhysics(),
+      children: [
+        Container(
+          padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
+          //color: Colors.blue,
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height / 3,
+          child: GridView.builder(
+            itemCount: 4,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 4,
+              mainAxisSpacing: 4,
+              childAspectRatio: MediaQuery.of(context).size.width /
+                  (MediaQuery.of(context).size.height / 3.19),
+            ),
+            itemBuilder: (BuildContext context, index) {
+              return GridTile(
+                child: Card(
+                  color: WidgetApps.bckColor,
+                  elevation: 4,
+                  shadowColor: const Color.fromARGB(255, 255, 190, 190),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                WidgetApps().rootName[index]),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(right: 10),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 141, 137, 137),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                        image: DecorationImage(
+                            image:
+                                AssetImage(WidgetApps().imgHomeGrid[index]),
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 10, left: 10, bottom: 10),
+          child: Text(
+            'All Songs',
+            style: TextStyles().titleStyle(
+              sizeFont: 35,
+              textGradiantColor1: const Color.fromARGB(255, 255, 255, 255),
+              textGradiantColor2: const Color.fromARGB(169, 15, 11, 11),
+            ),
+          ),
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          itemCount: 20,
+          itemBuilder: (BuildContext context, allSongIndex) {
+            return Card(
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 5),
+                leading: const CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.grey,
+                ),
+                title: Text('$allSongIndex'),
+                subtitle: Text('Subtitle $allSongIndex'),
+                trailing: Wrap(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.favorite),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.more_vert_rounded),
+                    )
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PlayScreen()),
+                  );
+                },
+                onLongPress: () {
+                  if (kDebugMode) {
+                    if (kDebugMode) {
+                      print('Long pressed');
+                    }
+                  }
+                },
+              ),
+            );
+          },
+        ),
+      ],
+    ),
+  ),
